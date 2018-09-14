@@ -29,21 +29,27 @@
 	on
 	) {
 
-				var myLineFeatureLayer = new FeatureLayer({
-		        url: "https://services3.arcgis.com/uMBtg22oagmWwnH7/arcgis/rest/services/route/FeatureServer"
-		      });
+		var myPopupTemplate = {
+	        content: "{Image}"
+	      };
+
+		var myPointFeatureLayer = new FeatureLayer({
+	        url: "https://services3.arcgis.com/uMBtg22oagmWwnH7/arcgis/rest/services/images/FeatureServer",
+					outFields: ["*"],
+					popupTemplate: myPopupTemplate
+	      });
 
 	myViewPoint1 = new Viewpoint ({
 		camera: {
-		position: [-22.5, 70.6, 10000],
-		tilt: 60,
-		heading: 340
+		position: [-22, 70, 20000],
+		tilt: 70,
+		heading: 350
 		},
 	});
 
 	myViewPoint2 = new Viewpoint ({
 		camera: {
-		position: [-22.2, 72, 9000],
+		position: [-22.4, 72, 9000],
 		tilt: 75,
 		heading: 300
 		},
@@ -69,7 +75,7 @@
 		camera: {
 		position: [-24.1, 73.5, 7000],
 		tilt: 80,
-		heading: 350
+		heading: 354
 		},
 	});
 
@@ -84,13 +90,21 @@
 
 	myMap = new Map({
           basemap: "satellite",
-					layers: [myLineFeatureLayer],
+					layers: [myPointFeatureLayer],
           ground: "world-elevation"
         });
 
     mySceneView = new SceneView({
           container: "map1",
           map: myMap,
+					popup: {
+          dockEnabled: true,
+          dockOptions: {
+            buttonEnabled: false,
+            breakpoint: false,
+						position: "bottom-left"
+          	}
+        		},
           camera: {
 			position: [-24, 67.8, 300000],
 			tilt: 55,
@@ -130,6 +144,7 @@
 	}
 
 	mySceneView.ui.add("buttonContainerDiv", "top-right");
+
 
 	});
 </script>
